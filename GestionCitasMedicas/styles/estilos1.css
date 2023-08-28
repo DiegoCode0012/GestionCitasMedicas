@@ -1,0 +1,76 @@
+﻿
+/* LA */
+.contenedor {
+    background-color: #E55B2D;
+    display: flex;
+    justify-content: space-between;
+}
+
+.caja {
+    padding: 15px;
+}
+.caja a {
+    color: white;
+   text-decoration: none;
+   margin: 15px;
+}
+    .caja a:hover {
+        color: #A6EE0A;
+    }
+
+
+/* YOUT */
+
+
+/* LOG */
+.LOGIN {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #EDDED9;
+    min-width: 200px;
+    max-width: 300px;
+    margin: 80px auto;
+    box-shadow: 0 8px 16px rgba(0,0,0,.3);
+}
+
+.cajaForm {
+    margin: 20px;
+}
+.inputForm {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #F00;
+    background-color: transparent;
+}
+
+input::placeholder {
+        font-family: cursive;
+}
+
+.distanciaCajasGrandes {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.distanciaCajasHijos {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+/* IN*/
+ESPECI
+
+.Todos input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #F00;
+    background-color: transparent;
+}
+    
+
+/*ALIDADES*/
+
+
+input[type="radio"] {
+   margin:10px;
+}

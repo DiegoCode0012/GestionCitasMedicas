@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<form class="LOGIN" id="frm">
+
+    <div class="cajaForm">
+        <img  style="width:150px;height:150px;" src="../Image/Usuario.png" />
+    </div>
+
+    <div class="cajaForm ">
+        <input class="inputForm" type="text" name="user" placeholder="Nombre" />
+    </div>
+    <div class="cajaForm">
+        <input class="inputForm" type="password" name="password" placeholder="Password" />
+    </div>
+
+    <div class="cajaForm">
+        <input class="btn btn-success" type="submit" value="Entrar" />
+    </div>
+
+
+
+</form>
+<!-- esto se carga en el layout la parte de abajo no en el renderbody-->
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+
+        $("#frm").submit(function (e) {
+            e.preventDefault();
+
+            url = "@Url.Content("~/Access/Enter")"
+            parametros = $(this).serialize();
+
+            $.post(url, parametros, function (data) {
+
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/Home")";
+                } else {
+                    alert(data)
+                }
+
+            })
+
+        })
+
+    })
+
+    </script>
+}

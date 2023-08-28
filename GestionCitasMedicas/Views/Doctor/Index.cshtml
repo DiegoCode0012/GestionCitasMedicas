@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<GestionCitasMedicas.Models.DOCTOR>
+@using PagedList.Mvc;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="display:flex;justify-content:center;margin:20px 0;">
+    <h2>Doctores</h2>
+</div>
+<div class="container">
+    <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Doctor/Add")'" value="Nuevo" />
+</div>
+
+<table class="table  container my-5 ">
+
+    <tr class="table-danger">
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Telefono</th>
+        <th>Especialidad</th>
+        <th>Eliminar</th>
+        <th>Editar</th>
+        <th>Detalles</th>
+    </tr>
+    @foreach (var oElemento in Model)
+    {
+        <tr style="color:blue">
+            <td>@oElemento.idDoctor</td>
+            <td>@oElemento.nombre @oElemento.apellido</td>
+            <td>@oElemento.telefono</td>
+            <td>@oElemento.ESPECIALIDAD.nombre</td>
+           <td>
+                <input type="button" class="btn btn-danger" onclick="document.location.href='@Url.Content("~/Doctor/Delete/"+oElemento.idDoctor)'" value="Eliminar" />
+            </td>
+            <td>
+                <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Doctor/Edit/"+oElemento.idDoctor)'" value="Editar" />
+            </td>
+            <td>
+                <input type="button" class="btn btn-warning" onclick="document.location.href='@Url.Content("~/Doctor/Details/"+oElemento.idDoctor)'" value="Detalles" />
+            </td>
+        </tr>
+
+
+    }
+
+</table>
+<div style="display:flex;justify-content:center">
+
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    Total de @Model.TotalItemCount registros
+</div>
+<div style="display:flex;justify-content:center">
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.PageSize }))
+</div>

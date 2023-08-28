@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CITAS">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_doctor" Type="int" Nullable="false" />
+    <Property Name="id_paciente" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="date" />
+    <Property Name="id_horario" Type="int" />
+    <Property Name="horaInicio" Type="time" Precision="7" />
+    <Property Name="horaFinal" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="DOCTOR">
+    <Key>
+      <PropertyRef Name="idDoctor" />
+    </Key>
+    <Property Name="idDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="telefono" Type="int" />
+    <Property Name="id_especialidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ESPECIALIDAD">
+    <Key>
+      <PropertyRef Name="id_especialidad" />
+    </Key>
+    <Property Name="id_especialidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="image" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="HORARIO">
+    <Key>
+      <PropertyRef Name="id_horario" />
+    </Key>
+    <Property Name="id_horario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha" Type="date" />
+    <Property Name="horaInicio" Type="time" Precision="7" />
+    <Property Name="horaFinal" Type="time" Precision="7" />
+    <Property Name="id_doctor" Type="int" />
+    <Property Name="disponibilidad" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="PACIENTE">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="dni" Type="int" />
+    <Property Name="telefono" Type="int" />
+    <Property Name="gmail" Type="varchar" MaxLength="50" />
+    <Property Name="contraseña" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ROL">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gmail" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="contraseña" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="id_rol" Type="int" />
+  </EntityType>
+  <Association Name="id_doctor">
+    <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CITAS" Type="Self.CITAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCTOR">
+        <PropertyRef Name="idDoctor" />
+      </Principal>
+      <Dependent Role="CITAS">
+        <PropertyRef Name="id_doctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_doctor0">
+    <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="0..1" />
+    <End Role="HORARIO" Type="Self.HORARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCTOR">
+        <PropertyRef Name="idDoctor" />
+      </Principal>
+      <Dependent Role="HORARIO">
+        <PropertyRef Name="id_doctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_especialidad">
+    <End Role="ESPECIALIDAD" Type="Self.ESPECIALIDAD" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESPECIALIDAD">
+        <PropertyRef Name="id_especialidad" />
+      </Principal>
+      <Dependent Role="DOCTOR">
+        <PropertyRef Name="id_especialidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_horario">
+    <End Role="HORARIO" Type="Self.HORARIO" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CITAS" Type="Self.CITAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HORARIO">
+        <PropertyRef Name="id_horario" />
+      </Principal>
+      <Dependent Role="CITAS">
+        <PropertyRef Name="id_horario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_paciente2">
+    <End Role="PACIENTE" Type="Self.PACIENTE" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CITAS" Type="Self.CITAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PACIENTE">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CITAS">
+        <PropertyRef Name="id_paciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="id_rol">
+    <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROL">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="id_rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HospitalModelStoreContainer">
+    <EntitySet Name="CITAS" EntityType="Self.CITAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DOCTOR" EntityType="Self.DOCTOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ESPECIALIDAD" EntityType="Self.ESPECIALIDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HORARIO" EntityType="Self.HORARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PACIENTE" EntityType="Self.PACIENTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="id_doctor" Association="Self.id_doctor">
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+      <End Role="CITAS" EntitySet="CITAS" />
+    </AssociationSet>
+    <AssociationSet Name="id_doctor0" Association="Self.id_doctor0">
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+      <End Role="HORARIO" EntitySet="HORARIO" />
+    </AssociationSet>
+    <AssociationSet Name="id_especialidad" Association="Self.id_especialidad">
+      <End Role="ESPECIALIDAD" EntitySet="ESPECIALIDAD" />
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+    </AssociationSet>
+    <AssociationSet Name="id_horario" Association="Self.id_horario">
+      <End Role="HORARIO" EntitySet="HORARIO" />
+      <End Role="CITAS" EntitySet="CITAS" />
+    </AssociationSet>
+    <AssociationSet Name="id_paciente2" Association="Self.id_paciente2">
+      <End Role="PACIENTE" EntitySet="PACIENTE" />
+      <End Role="CITAS" EntitySet="CITAS" />
+    </AssociationSet>
+    <AssociationSet Name="id_rol" Association="Self.id_rol">
+      <End Role="ROL" EntitySet="ROL" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

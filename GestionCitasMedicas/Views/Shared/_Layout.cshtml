@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+
+
+    <link rel="stylesheet"  href="/../styles/estilos1.css" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+
+
+
+    @if (Session["USER"] != null)
+    {
+        <div class="contenedor">
+           <div class="caja">
+               @Html.ActionLink("Consultar Especialidades", "Index", "Especialidades")
+               @Html.ActionLink("Mis citas", "Index", "Cita")
+           </div>
+           <div class="caja">
+               @Html.ActionLink("" + Session["USER"], "", "")
+               @Html.ActionLink("Logout", "Logout", "Access")
+           </div>
+            
+            </div>
+            }
+            else if (Session["ADMIN"] != null)
+            {
+<div class="contenedor">
+    <div class="caja">
+
+        @Html.ActionLink("Consultar Especialidades", "Index", "Especialidades")
+        @Html.ActionLink("G.Doctores", "Index", "Doctor")
+        @Html.ActionLink("G.Citas", "Index", "Cita")
+        @Html.ActionLink("G.Horario", "Index", "Horario")
+
+    </div>
+    <div class="caja">
+        @Html.ActionLink("Usuario:  "  +  Session["ADMIN"], "", "")
+        @Html.ActionLink("Logout", "Logout", "Access")
+    </div>
+  
+</div>
+    }
+
+
+
+
+
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

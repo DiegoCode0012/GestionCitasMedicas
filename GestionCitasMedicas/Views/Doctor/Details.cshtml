@@ -1,0 +1,35 @@
+﻿@model GestionCitasMedicas.Models.DOCTOR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div style="display:flex;justify-content:center;margin:20px 0;">
+    <h2>Citas del doctor @Model.nombre @Model.apellido</h2>
+
+</div>
+
+<div class="container">
+    <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Doctor")'" value="Volver" />
+</div>
+
+
+
+<table class="table  container my-5 ">
+
+    <tr class="table-danger">
+        <th>Paciente</th>
+        <th>HoraInicio</th>
+        <th>HoraFinal</th>
+    </tr>
+    @foreach (var oElemento in Model.CITAS)
+    {
+        <tr>
+            <td>@oElemento.PACIENTE.nombre @oElemento.PACIENTE.apellido</td>
+            <td>@oElemento.HORARIO.horaInicio</td>
+            <td>@oElemento.HORARIO.horaFinal</td>
+        </tr>
+    }
+</table>

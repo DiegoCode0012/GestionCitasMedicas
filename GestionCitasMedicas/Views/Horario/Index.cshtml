@@ -1,0 +1,53 @@
+﻿@model PagedList.IPagedList<GestionCitasMedicas.Models.HORARIO>
+@using PagedList.Mvc;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div style="display:flex;justify-content:center;margin:20px 0;">
+    <h2>Horarios</h2>
+</div>
+<div class="container">
+    <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Horario/Add")'" value="Nuevo" />
+</div>
+<table class="table container my-5">
+    <tr class="table-danger">
+        <th>Fecha</th>
+        <th>HoraInicio</th>
+        <th>HoraFin</th>
+        <th>Nombre Doctor</th>
+        <th>Disponibilidad</th>
+        <td>Eliminar</td>
+    </tr>
+
+    @foreach (var oElemento in Model)
+    {
+        <tr style="color:blue">
+            <td>@oElemento.fecha</td>
+            <td>@oElemento.horaInicio</td>
+            <td>@oElemento.horaFinal</td>
+            <td>@oElemento.DOCTOR.nombre @oElemento.DOCTOR.apellido</td>
+            <td>@oElemento.disponibilidad</td>
+            <td>
+                <input type="button" class="btn btn-danger" onclick="document.location.href='@Url.Content("~/Horario/Delete/"+oElemento.id_horario)'" value="Eliminar" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<div style="display:flex;justify-content:center">
+
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+    Total de @Model.TotalItemCount registros
+</div>
+<div style="display:flex;justify-content:center">
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.PageSize }))
+</div>

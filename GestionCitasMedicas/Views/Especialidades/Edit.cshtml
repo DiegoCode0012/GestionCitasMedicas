@@ -1,0 +1,40 @@
+﻿@model GestionCitasMedicas.Models.ESPECIALIDAD
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm("Edit", "Especialidades", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.id_especialidad)
+
+    <div class="container">
+        <div class="distanciaCajasGrandes">
+            <h2 style="color:blue">Formulario de  Especialidad</h2>
+        </div>
+        <div class="distanciaCajasGrandes">
+            @Html.LabelFor(x => x.nombre)
+            <div class="distanciaCajasHijos">
+                @Html.TextBoxFor(x => x.nombre, new { @class = "inputForm" })
+            </div>
+            <div class="distanciaCajasHijos">
+                @Html.ValidationMessage("Nombre", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="distanciaCajasGrandes">
+            @Html.LabelFor(x => x.image)
+            <div class="distanciaCajasHijos">
+                <input type="file" name="ImageFile" />
+            </div>
+            
+        </div>
+
+        <div class="distanciaCajasGrandes">
+            <input type="submit" class="btn btn-success mx-2" value="Editar" />
+        </div>
+    </div>
+}
+
+

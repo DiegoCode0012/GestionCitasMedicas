@@ -1,0 +1,40 @@
+﻿@model GestionCitasMedicas.Models.ESPECIALIDAD
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div style="display:flex;justify-content:center;margin:20px 0;">
+    <h2>Doctores de @Model.nombre</h2>
+
+</div>
+
+<div class="container">
+    <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Especialidades")'" value="Volver" />
+</div>
+
+
+
+<table class="table  container my-5 ">
+
+    <tr class="table-danger">
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Telefono</th>
+    </tr>
+    @foreach (var oElemento in Model.DOCTOR)
+    {
+        <tr>
+            <td>@oElemento.idDoctor</td>
+            <td>@oElemento.nombre</td>
+            <td>@oElemento.apellido</td>
+            <td>@oElemento.telefono</td>
+
+        </tr>
+
+
+    }
+    </table>
